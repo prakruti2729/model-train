@@ -27,7 +27,7 @@ pipeline {
                     script {
                         def venvDir = "venv"
                         
-                        sh ""bash -c 'source ${venvDir}/bin/activate && python train.py' "
+                        sh ""bash -c 'source ${venvDir}/bin/activate && python train.py'"
                     }
                 }
             }
