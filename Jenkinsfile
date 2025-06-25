@@ -10,20 +10,15 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Define the path for your virtual environment
+                   
                     def venvDir = "venv" // This will create a 'venv' directory in your workspace
 
-                    // 1. Create the virtual environment if it doesn't exist
+                    
                     sh "python3 -m venv ${venvDir}"
 
-                    // 2. Activate the virtual environment and install dependencies
-                    //    The 'source' command needs to be executed in the same shell as the pip command.
-                    //    Therefore, we chain the commands using '&&'.
-                    sh "source ${venvDir}/bin/activate && pip install -r requirements.txt"
-                    // Optionally, if you still face the "externally-managed-environment" error here
-                    // (which is unlikely inside a venv but good to be aware of),
-                    // you can add --break-system-packages (NOT RECOMMENDED inside venv unless truly stuck)
-                    // sh "source ${venvDir}/bin/activate && pip install -r requirements.txt --break-system-packages"
+                    
+                    sh "bash -c'source ${venvDir}/bin/activate && pip install -r requirements.txt'"
+               
                 }
             }
         }
@@ -31,8 +26,8 @@ pipeline {
                 steps {
                     script {
                         def venvDir = "venv"
-                        // Activate the virtual environment and then run your script
-                        sh "source ${venvDir}/bin/activate && python train.py"
+                        
+                        sh ""bash -c 'source ${venvDir}/bin/activate && python train.py' "
                     }
                 }
             }
@@ -41,7 +36,7 @@ pipeline {
                     script {
                         def venvDir = "venv"
                         // Activate the virtual environment and then run your script
-                        sh "source ${venvDir}/bin/activate && python test.py"
+                        sh ""bash -c 'source ${venvDir}/bin/activate && python test.py'"
                     }
                 }
             }
