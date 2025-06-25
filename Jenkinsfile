@@ -8,8 +8,11 @@ pipeline {
        }
        stage('Install Dependencies') {
          steps {
-		sudo apt install python3-pip	 
-            sh 'pip install -r requirements.txt --break-system-packages'
+		sh '''
+  			sudo apt update
+			sudo apt install python3-pip -y
+  		'''
+            sh 'pip install -r requirements.txt '
         }
       }
        stage('Train Model') {
