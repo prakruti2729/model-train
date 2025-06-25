@@ -26,7 +26,8 @@ pipeline {
                     // sh "source ${venvDir}/bin/activate && pip install -r requirements.txt --break-system-packages"
                 }
             }
-            stage('Train Model') {
+        }
+        stage('Train Model') {
                 steps {
                     script {
                         def venvDir = "venv"
@@ -35,7 +36,7 @@ pipeline {
                     }
                 }
             }
-            stage('Test Model') {
+        stage('Test Model') {
                 steps {
                     script {
                         def venvDir = "venv"
@@ -45,12 +46,12 @@ pipeline {
                 }
             }
             // ... other stages
-		 stage('Archive Model') {
-        steps {
-         archiveArtifacts artifacts: 'model.pkl', fingerprint: true
+		stage('Archive Model') {
+        	steps {
+         		archiveArtifacts artifacts: 'model.pkl', fingerprint: true
           }
         }
 		
-        }
+        
     }
 }
